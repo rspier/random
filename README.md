@@ -17,6 +17,9 @@ If something looks really interesting, just ask, and I'll split it into it's own
   a simple tool for periodically pushing the lock status of Gnome to a
   Prometheus pushgateway.
 
+* [prom-cronjob](https://github.com/rspier/random/tree/master/prom-cronjob) - a
+  simple framework for monitoring cronjobs with prometheus.
+
 ### DNS
 
 * [update-ddns](https://github.com/rspier/random/tree/master/update-ddns) -
