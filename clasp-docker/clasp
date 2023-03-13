@@ -23,6 +23,7 @@ UID=$(id -u)
 exec docker run --rm --init \
     --user $UID:$UID \
     --env HOME=/tmp/ \
+    --net=host \
     -v ~/.clasprc.json:/tmp/.clasprc.json \
     -v $PWD:/work \
     -ti google-clasp:latest $@
