@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Window Switcher",
+  "version": "0.0.1",
+  "description": "A simple extension that creates a window switcher.  Click on a window to focus it.",
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "permissions": ["tabs"],
+  "action": {}
+}
