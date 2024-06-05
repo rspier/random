@@ -23,6 +23,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 
 	"github.com/coreos/go-iptables/iptables"
 )
@@ -31,10 +32,19 @@ var (
 	chain = flag.String("chain", "", "chain to manage")
 	srv   = flag.String("srv", "", "SRV record to get data from")
 	table = flag.String("table", "filter", "table")
+	dns   = flag.String("dns", "127.0.0.1:53", "DNS server")
 )
 
 func getIPs(ctx context.Context, target string) ([]net.IP, error) {
-	r := &net.Resolver{} // should probably be passed in
+	r := &net.Resolver{
+		PreferGo: true,
+		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+			d := net.Dialer{
+				Timeout: time.Millisecond * time.Duration(10000),
+			}
+			return d.DialContext(ctx, network, *dns)
+		},
+	}
 	_, addrs, err := r.LookupSRV(ctx, "", "", target)
 	if err != nil {
 		return nil, fmt.Errorf("error looking up srv record %q: %w", target, err)
